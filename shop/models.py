@@ -25,7 +25,7 @@ class Order(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="pending")
 
     def get_total_price(self):
-        return sum(item.get_total_price() for item in self.items.all())
+        return sum(item.get_item_price() for item in self.items.all())
 
     def __str__(self):
         return f"Заказ #{self.id} - {self.user.username}"
@@ -34,10 +34,10 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="items")
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
-    price = models.DecimalField(max_digits=10, decimal_places=2)  # Фиксируем цену
+    price = models.DecimalField(max_digits=10, decimal_places=2) 
 
-    def get_total_price(self):
-        return self.price * self.quantity
+    def get_item_price(self):
+        return self.car.price * self.quantity
 
     def __str__(self):
         return f"{self.car} x {self.quantity}"
