@@ -3,36 +3,36 @@
 {% block content %}
 
 <h2>Корзина</h2>
+<div class="cart-list-frame">
+    <div class="car-cart">
 
-<div class="car-cart">
-
-    <div class="car-card">
-        {% for item in cart.items.all %}
-        {% if item.car.images.all %}
-        <img src="{{ item.car.images.first.image.url }}" alt="{{ item.car.model }}" class="car-image">
-        {% else %}
-        <img src="{% static 'images/no-image.png' %}" alt="Нет фото" class="car-image">
-        {% endif %}
-        <div class="car-info">
-            <h2 class="car-title">
-                {{ item.car.model.brand.name }} {{ item.car.model.name }}, {{ item.car.year }}
-            </h2>
-            {% if item.car.is_new %}
-                <p>Количество: {{ item.quantity }} шт.</p>
+        <div class="car-card">
+            {% for item in cart.items.all %}
+            {% if item.car.images.all %}
+            <img src="{{ item.car.images.first.image.url }}" alt="{{ item.car.model }}" class="car-image">
+            {% else %}
+            <img src="{% static 'images/no-image.png' %}" alt="Нет фото" class="car-image">
             {% endif %}
+            <div class="car-info">
+                <h2 class="car-title">
+                    {{ item.car.model.brand.name }} {{ item.car.model.name }}, {{ item.car.year }}
+                </h2>
+                {% if item.car.is_new %}
+                    <p>Количество: {{ item.quantity }} шт.</p>
+                {% endif %}
 
+            </div>
+            <div class = "car-price">
+                <p class="price">{{ item.get_item_price }} ₽</p>
+            </div>  
+            <a href="{% url 'remove_from_cart' item.id %}">Удалить</a>    
+            {% endfor %}
         </div>
-        <div class = "car-price">
-            <p class="price">{{ item.get_item_price }} ₽</p>
-        </div>  
-        <a href="{% url 'remove_from_cart' item.id %}">Удалить</a>    
-        {% endfor %}
-    </div>
-    <div class="order-complete">
-        <p>Общая сумма: {{ cart.get_total_price }} ₽</p>
-        <a href="{% url 'checkout' %}">Оформить заказ</a>
-    </div>
+        <div class="order-complete">
+            <p>Общая сумма: {{ cart.get_total_price }} ₽</p>
+            <a href="{% url 'checkout' %}">Оформить заказ</a>
+        </div>
 
+    </div>
 </div>
-
 {% endblock %}

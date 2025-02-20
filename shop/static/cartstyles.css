@@ -1,0 +1,37 @@
+.cart-list-frame{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.car-cart {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    width: 900px;
+    padding: 0 20px;
+}
+
+.car-card {
+    display: flex;
+    background: white;
+    border-radius: 0px;
+    padding: 15px;
+    justify-content: space-between;
+    border-bottom: 2px solid #e0e0e0;
+    height: 200px;
+}
+
+.car-image {
+    width: 170px;
+    height: 100px;
+    max-height: fit-content;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 40px;
+}

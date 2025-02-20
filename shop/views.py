@@ -15,7 +15,7 @@ def add_to_cart(request, car_id):
         cart_item.quantity += 1
         cart_item.save()
 
-    return redirect("cart_view")
+    return redirect("/")
 
 def remove_from_cart(request, item_id):
     item = get_object_or_404(CartItem, id=item_id)

@@ -1,0 +1,31 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'car:home' %}">Автомобили</a></li>
+                <li><a href="{% url 'shop:cart' %}">Корзина</a></li>
+                <!-- Добавьте другие пункты меню -->
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}
+        <!-- Здесь будет содержимое конкретной страницы -->
+        {% endblock %}
+    </main>
+    
+    <footer>
+        <!-- Подвал -->
+    </footer>
+</body>
+</html>

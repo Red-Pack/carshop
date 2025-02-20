@@ -1,56 +1,166 @@
+{% extends "cars/base.html" %}
 {% load static %}
+{% block content %}
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Автомобили</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-</head>
 <body>
-    <header>
-        <h1>Автомобили</h1>
-    </header>
-    
     <div class="filter-bar">
-        <input type="text" placeholder="Марка авто">
-        <input type="text" placeholder="Модель">
-        <input type="number" placeholder="Год от">
-        <input type="number" placeholder="Цена от">
-        <button>Подобрать</button>
-    </div>
-
-    <div class="car-list">
-    {% for car in cars %}
-
-    <div class="car-card">
-        {% if car.images.all %}
-        <img src="{{ car.images.first.image.url }}" alt="{{ car.model }}" class="car-image">
-        {% else %}
-        <img src="{% static 'images/no-image.png' %}" alt="Нет фото" class="car-image">
-        {% endif %}
-
-        <div class="car-info">
-            <h2 class="car-title">
-                {{ car.model.brand.name }} {{ car.model.name }}, {{ car.year }}
-            </h2>
-            <p class="car-specs">
-                {{ car.engine_capacity }} л ({{ car.power_hp }} л.с.), 
-                {{car.engine}}, {{ car.get_transmission_display }}, 
-                {{car.drive}}{% if not car.is_new %},
-                {{car.get_mileage_display}} км{% endif %} 
-            </p>
-            {% if car.is_new %}
-                <span class="new-label">Новый</span>
-            {% endif %}
-            
+        <div class="search-container">
+            <form method="get" class="search-form">
+                <div class="search-row">
+                    <div class="search-group">
+                        {{ form.brand.label_tag }}
+                        {{ form.brand }}
+                    </div>
+                    <div class="search-group">
+                        {{ form.model.label_tag }}
+                        {{ form.model }}
+                    </div>
+                    <div class="search-group">
+                        {{ form.year_from.label_tag }}
+                        {{ form.year_from }}
+                    </div>
+                    <div class="search-group">
+                        {{ form.year_to.label_tag }}
+                        {{ form.year_to }}
+                    </div>
+                    <div class="search-group">
+                        {{ form.transmission.label_tag }}
+                        {{ form.transmission }}
+                    </div>
+                    <div class="search-group">
+                        {{ form.engine.label_tag }}
+                        {{ form.engine }}
+                    </div>
+                    <div class="search-group">
+                        {{ form.drive.label_tag }}
+                        {{ form.drive }}
+                    </div>
+                    <div class="search-group">
+                        {{ form.has_photo.label_tag }}
+                        {{ form.has_photo }}
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Показать</button>
+                </div>
+            </form>
         </div>
-        <div class = "car-price">
-            <p class="price">{{ car.get_price_display }} ₽</p>
-            <p class="car-location">Курган, сегодня</p>
-        </div>      
     </div>
-    {% endfor %}
+    <div class="car-list-frame">
+        <div class="car-list">
+        {% for car in cars %}
+
+        <div class="car-card">
+            {% if car.images.all %}
+            <img src="{{ car.images.first.image.url }}" alt="{{ car.model }}" class="car-image">
+            {% else %}
+            <img src="{% static 'images/no-image.png' %}" alt="Нет фото" class="car-image">
+            {% endif %}
+
+            <div class="car-info">
+                <h2 class="car-title">
+                    {{ car.model.brand.name }} {{ car.model.name }}, {{ car.year }}
+                </h2>
+                <p class="car-specs">
+                    {{ car.engine_capacity }} л ({{ car.power_hp }} л.с.), 
+                    {{car.engine}}, {{ car.get_transmission_display }}, 
+                    {{car.drive}}{% if not car.is_new %},
+                    {{car.get_mileage_display}} км{% endif %} 
+                </p>
+                {% if car.is_new %}
+                    <span class="new-label">Новый</span>
+                {% endif %}
+
+            </div>
+            <div class = "car-price">
+                <p class="price">{{ car.get_price_display }} ₽</p>
+                <p class="car-location">
+                    <a href="cart/add/{{car.id}}/">
+                        В корзину
+                    </a>
+                </p>
+            </div>      
+        </div>
+        {% endfor %}
+
+        <!-- Блок пагинации -->
+        <div class="paging">
+            <ul class="pagination">
+                {% if cars.has_previous %}
+                    <li>
+                        <a href="?page={{ cars.previous_page_number }}{% if query %}&{{ query }}{% endif %}">
+                            Назад
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled"><span>Назад</span></li>
+                {% endif %}
+        
+                {% for num in cars.paginator.page_range %}
+                    {% if cars.number == num %}
+                        <li class="active"><span>{{ num }}</span></li>
+                    {% else %}
+                        <li>
+                            <a href="?page={{ num }}{% if query %}&{{ query }}{% endif %}">
+                                {{ num }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+        
+                {% if cars.has_next %}
+                    <li>
+                        <a href="?page={{ cars.next_page_number }}{% if query %}&{{ query }}{% endif %}">
+                            Вперед
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled"><span>Вперед</span></li>
+                {% endif %}
+            </ul>
+        </div>
+
+    </div> 
+
+    
+
+
 </body>
 </html>
+
+
+<!-- JavaScript для динамической подгрузки моделей -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const brandSelect = document.getElementById("id_brand");
+        const modelSelect = document.getElementById("id_model");
+    
+        brandSelect.addEventListener('change', function() {
+            const brandId = this.value;
+            if (brandId) {
+                // Выполняем AJAX-запрос к нашему представлению для подгрузки моделей
+                fetch(`/ajax/load-models/?brand=${brandId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Очищаем текущие опции поля моделей
+                        modelSelect.innerHTML = '<option value="">Любая модель</option>';
+                        // Заполняем новыми данными
+                        data.forEach(item => {
+                            const option = document.createElement('option');
+                            option.value = item.id;
+                            option.textContent = item.name;
+                            modelSelect.appendChild(option);
+                        });
+                        modelSelect.disabled = false;
+                    })
+                    .catch(error => console.error('Ошибка загрузки моделей:', error));
+            } else {
+                // Если марка не выбрана, очищаем и блокируем поле моделей
+                modelSelect.innerHTML = '<option value="">Любая модель</option>';
+                modelSelect.disabled = true;
+            }
+        });
+    });
+    </script>
+
+
+{% endblock %}
