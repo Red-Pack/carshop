@@ -15,14 +15,19 @@ def add_to_cart(request, car_id):
         cart_item.quantity += 1
         cart_item.save()
 
-    return redirect("/")
+    referer = request.META.get('HTTP_REFERER')
+    # Если referer существует и начинается с '/' или 'http', возвращаем его, иначе - главную страницу
+    if referer and (referer.startswith('/') or referer.startswith('http')):
+        return redirect(referer)
+    else:
+        return redirect('/')
 
 def remove_from_cart(request, item_id):
     item = get_object_or_404(CartItem, id=item_id)
     if item.cart.user == request.user:
         item.delete()
 
-    return redirect("cart_view")
+    return redirect("cart:cart_view")
 
 def checkout(request):
     cart = get_object_or_404(Cart, user=request.user)

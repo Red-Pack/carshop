@@ -1,7 +1,7 @@
 {% extends "cars/base.html" %}
 {% load static %}
 {% block content %}
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <body>
     <div class="filter-bar">
         <div class="search-container">
@@ -74,9 +74,7 @@
             <div class = "car-price">
                 <p class="price">{{ car.get_price_display }} ₽</p>
                 <p class="car-location">
-                    <a href="cart/add/{{car.id}}/">
-                        В корзину
-                    </a>
+                    <a href="{% url 'cart:add_to_cart' car.id %}" class="add-to-cart">В корзину</a>
                 </p>
             </div>      
         </div>
@@ -158,6 +156,27 @@
                 modelSelect.innerHTML = '<option value="">Любая модель</option>';
                 modelSelect.disabled = true;
             }
+        });
+    });
+
+
+    $(document).ready(function(){
+        $('.add-to-cart').on('click', function(e){
+            e.preventDefault(); // Отменяем переход по ссылке
+    
+            var url = $(this).attr('href');
+    
+            $.ajax({
+                url: url,
+                type: 'GET', // или 'POST' в зависимости от вашего представления
+                success: function(response){
+                    // Обновляем индикатор корзины или показываем уведомление
+                    //alert('Товар добавлен в корзину!');
+                },
+                error: function(){
+                    //alert('Ошибка при добавлении в корзину.');
+                }
+            });
         });
     });
     </script>

@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Автомобили</title>
         <link rel="stylesheet" type="text/css" href="{% static 'carsstyles.css' %}?{% now "U" %}">
+        {% include "header.html" %}
     </header>
     <main>
         {% block content %}{% endblock %}

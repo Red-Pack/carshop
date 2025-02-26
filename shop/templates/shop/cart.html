@@ -5,9 +5,8 @@
 <h2>Корзина</h2>
 <div class="cart-list-frame">
     <div class="car-cart">
-
+        {% for item in cart.items.all %}
         <div class="car-card">
-            {% for item in cart.items.all %}
             {% if item.car.images.all %}
             <img src="{{ item.car.images.first.image.url }}" alt="{{ item.car.model }}" class="car-image">
             {% else %}
@@ -25,12 +24,13 @@
             <div class = "car-price">
                 <p class="price">{{ item.get_item_price }} ₽</p>
             </div>  
-            <a href="{% url 'remove_from_cart' item.id %}">Удалить</a>    
-            {% endfor %}
+            <a href="{% url 'cart:remove_from_cart' item.id %}">Удалить</a>    
+            
         </div>
+        {% endfor %}
         <div class="order-complete">
             <p>Общая сумма: {{ cart.get_total_price }} ₽</p>
-            <a href="{% url 'checkout' %}">Оформить заказ</a>
+            <a href="{% url 'cart:checkout' %}">Оформить заказ</a>
         </div>
 
     </div>

@@ -1,0 +1,13 @@
+{% load static %}
+    <nav>
+        <ul>
+            <li><a href="{% url 'car:car_list' %}">Автомобили</a></li>
+            <li><a href="{% url 'cart:cart_view' %}">Корзина</a></li>
+            {% if user.is_authenticated %}
+                Профиль
+                Выйти   
+            {% else %}
+                Войти 
+            {% endif %}
+        </ul>
+    </nav>

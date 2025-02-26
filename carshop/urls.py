@@ -7,9 +7,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('cars.urls')),  
-    path("", include("users.urls")),
-    path("", include("shop.urls")),
+    path("", include('cars.urls')),  
+    path("user/", include("users.urls")),
+    path("cart/", include("shop.urls", namespace="cart")),
 
 ]
 
