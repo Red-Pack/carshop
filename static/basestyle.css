@@ -1,6 +1,84 @@
+/* Общие стили */
 body {
+    padding-top: 80px; /* Отступ больше высоты шапки */
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
+
 }
 
+/* Шапка */
+.navbar {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Контейнер для центрирования */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Логотип */
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+/* Навигация */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.nav-links a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Кнопки */
+.login-btn {
+    background: #28a745;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.logout-btn {
+    background: #dc3545;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.login-btn:hover, .logout-btn:hover {
+    opacity: 0.8;
+}
+
+/* Отступ для контента, чтобы шапка не перекрывала */
+body {
+    padding-top: 60px;
+}

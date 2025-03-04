@@ -1,65 +1,80 @@
-/* Общие стили для страниц входа и регистрации */
+/* Контейнер формы */
 .auth-container {
-    width: 300px;
-    margin: 50px auto;
-    padding: 20px;
-    background: #f4f4f4;
+    max-width: 350px;
+    margin: 80px auto;
+    padding: 25px;
+    background: white;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
-.auth-form input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+/* Заголовок */
+.auth-container h2 {
+    margin-bottom: 20px;
+    color: #333;
 }
 
+/* Форма */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Поля ввода */
+.auth-form input {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.auth-form input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Кнопка */
 .auth-form button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     background: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
 .auth-form button:hover {
     background: #0056b3;
 }
 
-form {
-    width: 500px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: #f9f9f9;
+/* Ссылки */
+.auth-links {
+    margin-top: 15px;
+    font-size: 14px;
 }
 
-input[type="text"],
-input[type="password"]
-input[type="email"] {
-    width: 100%;
-    padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+.auth-links a {
+    color: #007bff;
+    text-decoration: none;
+    transition: 0.3s;
 }
 
-button {
-    width: 100%;
-    padding: 10px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.auth-links a:hover {
+    text-decoration: underline;
 }
 
-button:hover {
-    background: #0056b3;
+/* Адаптивность */
+@media (max-width: 400px) {
+    .auth-container {
+        width: 90%;
+        padding: 20px;
+    }
 }

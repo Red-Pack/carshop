@@ -2,13 +2,16 @@
 {% load static %}
 {% block content %}
 
+<div class="auth-container">
     <h2>Вход</h2>
-    <form method="post">
+    <form method="post" class="auth-form">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Войти</button>
     </form>
-    <div>
-        <a href="{% url 'user:register' %}">Регистрация</a>
+    <div class="auth-links">
+        <p>Нет аккаунта? <a href="{% url 'user:register' %}">Зарегистрируйтесь</a></p>
     </div>
+</div>
+
 {% endblock %}
