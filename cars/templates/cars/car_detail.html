@@ -1,0 +1,167 @@
+<!-- car_detail.html -->
+{% extends 'cars/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'car_detail.css' %}?{% now "U" %}">   
+<div class="car-detail-container">
+    <!-- Заголовок -->
+    <div class="car-header">
+        <h1>{{ car.model.brand.name }} {{ car.model.name }}, {{ car.year }}</h1>
+        <div class="price-block">
+            <div class="main-price">{{ car.get_price_display }} ₽</div>
+            {% if car.is_new %}
+            <div class="price-comment">Новый</div>
+            {% endif %}
+        </div>
+    </div>
+    {% if car.images.all %}
+            
+    <!-- Галерея изображений -->
+    <div class="car-gallery">
+        <!-- Основное большое фото -->
+        <div class="main-image-container">
+            <img src="{{ car.images.first.image.url }}" 
+                 alt="{{ car.model.name }}" 
+                 class="main-image"
+                 id="mainImage">
+            
+            <!-- Кнопки навигации -->
+            <button class="nav-btn prev-btn">&lt;</button>
+            <button class="nav-btn next-btn">&gt;</button>
+        </div>
+        
+    
+        <!-- Ряд миниатюр -->
+        <div class="thumbnails">
+            {% for image in car.images.all %}
+                <img src="{{ image.image.url }}" 
+                     alt="Thumbnail {{ forloop.counter }}" 
+                     class="thumbnail {% if forloop.first %}active{% endif %}"
+                     data-index="{{ forloop.counter0 }}">
+            {% empty %}
+                <img src="{% static 'images/no-image.png' %}" 
+                     alt="Нет фото" 
+                     class="thumbnail active">
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="specs-grid">
+        <div class="spec-item">
+            <span class="spec-label">Двигатель</span>
+            <span class="spec-value">{{ car.engine }}, {{ car.engine_capacity }} л</span>
+        </div>
+        <div class="spec-item">
+            <span class="spec-label">Мощность</span>
+            <span class="spec-value">{{ car.power_hp }} л.с., налог</span>
+        </div>
+        <div class="spec-item">
+            <span class="spec-label">Коробка передач</span>
+            <span class="spec-value">{{ car.get_transmission_display }}</span>
+        </div>
+        <div class="spec-item">
+            <span class="spec-label">Привод</span>
+            <span class="spec-value">{{ car.get_drive_display }}</span>
+        </div>
+        <div class="spec-item">
+            <span class="spec-label">Тип кузова</span>
+            <span class="spec-value">{{ car.get_body_type_display }} {{ car.doors }} дв.</span>
+        </div>
+        <div class="spec-item">
+            <span class="spec-label">Цвет</span>
+            <span class="spec-value">{{ car.color }}</span>
+        </div>
+        {% if not car.is_new %}
+            <div class="spec-item">
+                <span class="spec-label">Пробег</span>
+                <span class="spec-value">{{ car.get_mileage_display }} км</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Владельцы</span>
+                <span class="spec-value">{{ car.owners }}</span>
+            </div>
+        {% else %}
+        <div class="spec-item">
+            <span class="spec-label">Количество</span>
+            <span class="spec-value">{{ car.quantity }}</span>
+        </div>
+        {% endif %}
+        
+        <div class="spec-item">
+            <span class="spec-label">Руль</span>
+            <span class="spec-value">{{ car.get_wheel_display }}</span>
+        </div>
+        <div class="spec-item">
+            <span class="spec-label">Поколение</span>
+            <span class="spec-value">{{ car.generation }}</span>
+        </div>
+        <div class="spec-item">
+            <span class="spec-label">Комплектация</span>
+            <span class="spec-value">{{ car.modification }}</span>
+        </div>
+    </div>
+
+    <!-- VIN-отчет -->
+    <div class="vin-report">
+        <h2>Отчет по VIN-коду</h2>
+        <div class="vin-code">{{ car.vin }}</div>
+        <ul class="vin-details">
+            <li>Характеристики совпадают с ПТС</li>
+            <li>6 записей о регистрации</li>
+            <li>Стоит на учете в ГИБДД</li>
+            <li>Был во владении у юр. лица</li>
+            <li>Последний период владения больше 1 года</li>
+            <li>Не числится в розыске</li>
+        </ul>
+    </div>
+
+    
+    
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const mainImage = document.getElementById('mainImage');
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const images = Array.from(thumbnails);
+        let currentIndex = 0;
+    
+        // Обработчик клика на миниатюру
+        thumbnails.forEach(thumb => {
+            thumb.addEventListener('click', () => {
+                currentIndex = parseInt(thumb.dataset.index);
+                updateMainImage();
+            });
+        });
+    
+        // Кнопки навигации
+        document.querySelector('.prev-btn').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateMainImage();
+        });
+    
+        document.querySelector('.next-btn').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            updateMainImage();
+        });
+    
+        function updateMainImage() {
+            // Обновляем основное изображение
+            mainImage.src = images[currentIndex].src;
+            mainImage.style.opacity = 0;
+            
+            // Анимация перехода
+            setTimeout(() => {
+                mainImage.style.opacity = 1;
+            }, 100);
+    
+            // Обновляем активную миниатюру
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+            thumbnails[currentIndex].classList.add('active');
+        }
+    });
+    </script>
+
+{% endblock %}

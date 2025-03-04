@@ -1,0 +1,17 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'profile.css' %}?{% now "U" %}">
+<div class="profile-container">
+    <h1>Ваш профиль</h1>
+    <div class="profile-info">
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
+        <p><strong>Телефон:</strong> {{ user.phone|default:"Не указан" }}</p>
+        <p><strong>Адрес:</strong> {{ user.address|default:"Не указан" }}</p>
+    </div>
+    <a href="{% url 'user:profile_edit' %}" class="edit-button"><i class="button">Редактировать</i></a>
+    <a href="{% url 'user:logout' %}" class="logout-button">Выйти</a>
+</div>
+{% endblock %}

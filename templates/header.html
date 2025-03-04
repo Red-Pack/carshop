@@ -1,13 +1,14 @@
 {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'basestyle.css' %}?{% now "U" %}">
     <nav>
         <ul>
-            <li><a href="{% url 'car:car_list' %}">Автомобили</a></li>
-            <li><a href="{% url 'cart:cart_view' %}">Корзина</a></li>
+            <li><a href="{% url 'car:car_list' %}">Главная</a></li>
             {% if user.is_authenticated %}
-                Профиль
-                Выйти   
+            <li><a href="{% url 'cart:cart_view' %}">Корзина</a></li>
+                <a href="{% url 'user:profile' %}">Профиль</a>
+                <a href="{% url 'user:logout' %}">Выйти ({{ user.username }})</a>  
             {% else %}
-                Войти 
+                <a href="{% url 'user:login' %}">Войти</a>
             {% endif %}
         </ul>
     </nav>

@@ -5,6 +5,7 @@
 <h2>Корзина</h2>
 <div class="cart-list-frame">
     <div class="car-cart">
+        {% if cart.items.exists%}
         {% for item in cart.items.all %}
         <div class="car-card">
             {% if item.car.images.all %}
@@ -32,7 +33,9 @@
             <p>Общая сумма: {{ cart.get_total_price }} ₽</p>
             <a href="{% url 'cart:checkout' %}">Оформить заказ</a>
         </div>
-
+        {% else %}
+            <p>Корзина пуста</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

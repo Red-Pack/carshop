@@ -34,4 +34,4 @@ def checkout(request):
     order = Order.objects.create(user=request.user, total_price=cart.total_price())
     cart.items.all().delete()
 
-    return redirect("order_history")
+    return redirect("user:order_history")

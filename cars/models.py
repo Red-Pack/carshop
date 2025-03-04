@@ -6,6 +6,10 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+       verbose_name = 'Марка'         
+       verbose_name_plural = 'Марки' 
 
 # Модель автомобиля (привязана к марке)
 class CarModel(models.Model):
@@ -14,7 +18,10 @@ class CarModel(models.Model):
 
     def __str__(self):
         return f"{self.name}"
-
+    
+    class Meta:
+       verbose_name = 'Модель'         
+       verbose_name_plural = 'Модели'  
 # Основная модель автомобиля
 class Car(models.Model):
     price = models.PositiveIntegerField(verbose_name="Цена")
@@ -81,6 +88,10 @@ class Car(models.Model):
 
     def __str__(self):
         return f"{self.model.brand.name} {self.model.name} ({self.year})"
+    
+    class Meta:
+       verbose_name = 'Автомобиль'          # Единственное число
+       verbose_name_plural = 'Автомобили'  # Множественное число
 
 # Фото автомобилей (несколько фото)
 class CarImage(models.Model):

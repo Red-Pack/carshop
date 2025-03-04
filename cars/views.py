@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
+from django.views import generic
 from django.http import JsonResponse
 from .forms import CarFilterForm
 from .models import Car, CarModel
@@ -9,6 +10,13 @@ def load_models(request):
     models = CarModel.objects.filter(brand_id=brand_id).order_by('name')
     models_list = list(models.values('id', 'name'))
     return JsonResponse(models_list, safe=False)
+
+class CarDetailView(generic.DetailView):
+    model = Car
+    template_name = 'cars/car_detail.html'
+    context_object_name = 'car'
+
+
 
 def car_list(request):
     form = CarFilterForm(request.GET or None)
@@ -71,4 +79,5 @@ def car_list(request):
         'query': params.urlencode()  # Передаём оставшиеся параметры
     }
     return render(request, 'cars/car_list.html', context)
+
 

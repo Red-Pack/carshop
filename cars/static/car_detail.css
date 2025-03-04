@@ -1,0 +1,153 @@
+/* Стили для страницы */
+.car-detail-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 20px;
+}
+
+.car-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.price-block {
+    text-align: right;
+}
+
+.main-price {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.price-comment {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.photo-block {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.specs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.spec-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.spec-label {
+    color: #666;
+    font-weight: 500;
+}
+
+.spec-value {
+    font-weight: bold;
+    color: #333;
+}
+
+.vin-report {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.vin-code {
+    font-family: monospace;
+    font-size: 1.2rem;
+    margin: 1rem 0;
+    color: #666;
+}
+
+.vin-details li {
+    list-style-type: none;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+
+.car-gallery {
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.main-image-container {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.main-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: opacity 0.3s ease;
+}
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+.thumbnails {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.thumbnail {
+    width: 100px;
+    height: 75px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.thumbnail.active {
+    border-color: #007bff;
+}
+
+.thumbnail:hover {
+    opacity: 0.8;
+}
+
+.price-comment {
+    display: inline-block;
+    background: #4CAF50;
+    color: white;
+    font-size: 15px;
+    padding: 3px 7px;
+    border-radius: 4px;
+}

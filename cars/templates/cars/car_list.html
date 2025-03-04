@@ -1,6 +1,7 @@
 {% extends "cars/base.html" %}
 {% load static %}
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'carsstyles.css' %}?{% now "U" %}">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <body>
     <div class="filter-bar">
@@ -50,13 +51,16 @@
         {% for car in cars %}
 
         <div class="car-card">
+            
             {% if car.images.all %}
             <img src="{{ car.images.first.image.url }}" alt="{{ car.model }}" class="car-image">
             {% else %}
             <img src="{% static 'images/no-image.png' %}" alt="Нет фото" class="car-image">
             {% endif %}
 
+            
             <div class="car-info">
+                <a href="{% url 'car:car_detail' car.id %}" class="car-info-link">
                 <h2 class="car-title">
                     {{ car.model.brand.name }} {{ car.model.name }}, {{ car.year }}
                 </h2>
@@ -69,8 +73,9 @@
                 {% if car.is_new %}
                     <span class="new-label">Новый</span>
                 {% endif %}
-
+                </a>
             </div>
+           
             <div class = "car-price">
                 <p class="price">{{ car.get_price_display }} ₽</p>
                 <p class="car-location">
@@ -168,7 +173,7 @@
     
             $.ajax({
                 url: url,
-                type: 'GET', // или 'POST' в зависимости от вашего представления
+                type: 'GET',
                 success: function(response){
                     // Обновляем индикатор корзины или показываем уведомление
                     //alert('Товар добавлен в корзину!');

@@ -39,7 +39,7 @@ header {
     flex-direction: column;
     margin-left: auto;
     margin-right: auto;
-    width: 900px;
+    width: 1000px;
     padding: 0 20px;
 }
 
@@ -55,7 +55,6 @@ header {
 
 .car-image {
     width: 270px;
-    max-height: fit-content;
     object-fit: cover;
     border-radius: 5px;
     margin-right: 40px;
@@ -111,7 +110,7 @@ header {
 
 
 .search-container {
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 1rem;
 }
@@ -145,18 +144,9 @@ header {
     padding: 0.4rem 0.6rem;
     border: 1px solid #ccc;
     border-radius: 4px;
-    min-width: 120px; /* для наглядности */
+    min-width: 145;
 }
 
-/* Кнопка "+" (условно для расширенного поиска) */
-.plus-button {
-    background-color: #eee;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-}
 
 /* Кнопка "Показать" */
 .submit-btn {
@@ -196,4 +186,22 @@ header {
 }
 .pagination li.disabled span {
     color: #999;
+}
+
+
+.car-info-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    flex-grow: 1;
+}
+
+.car-info-link:hover .car-info {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.car-info {
+    padding: 15px;
+    transition: background-color 0.3s ease;
 }
