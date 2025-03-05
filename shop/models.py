@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from cars.models import Car
+from cars.models import Car  
 from django.conf import settings
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 
 class Cart(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="cart")

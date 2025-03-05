@@ -13,6 +13,7 @@ class CarAdmin(admin.ModelAdmin):
     search_fields = ('vin', 'model__brand__name', 'model__name')
     inlines = [CarImageInline]
 
+
     def get_brand(self, obj):
         return obj.model.brand.name
 

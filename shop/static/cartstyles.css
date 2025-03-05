@@ -1,42 +1,86 @@
-.cart-list-frame{
+/* Контейнер корзины: два столбца */
+.cart-container {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
+    gap: 20px;
     padding: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
-.car-cart {
+/* Список товаров */
+.cart-items {
+    flex: 2;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0;
-    justify-content: center;
     flex-direction: column;
-    margin-left: auto;
-    margin-right: auto;
-    width: 900px;
-    padding: 0 20px;
+    gap: 15px;
 }
 
+/* Блок с итоговой суммой и кнопкой оформления */
+.order-summary {
+
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    height: fit-content;
+    align-self: flex-start;
+    text-align: right;
+}
+
+/* Кнопка оформления заказа */
+.checkout-btn {
+    display: inline-block;
+    margin-top: 15px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s;
+}
+
+.checkout-btn:hover {
+    background-color: #45a049;
+}
+
+/* Стили для карточек товаров */
 .car-card {
     display: flex;
+    align-items: center;
     background: white;
-    border-radius: 0px;
     padding: 15px;
-    justify-content: space-between;
-    border-bottom: 2px solid #e0e0e0;
-    height: 200px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    gap: 15px;
 }
 
 .car-image {
-    width: 170px;
+    width: 150px;
     height: 100px;
-    max-height: fit-content;
     object-fit: cover;
     border-radius: 5px;
-    margin-right: 40px;
 }
 
-.order-complete {
-    text-align: right;
-    align-self: flex-start;
-  }
+.car-info {
+    flex: 1;
+}
+
+.car-title {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.car-price {
+    font-weight: bold;
+    color: #333;
+}
+
+.remove-link {
+    color: #dc3545;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 10px;
+}
